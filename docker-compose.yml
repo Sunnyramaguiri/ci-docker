@@ -1,12 +1,9 @@
 ---
 services:
-  mywebserver:
-    image: tomee
+  myno:
+    image: sunnyramagiri/myno:latest
     ports:
-      - 9090:8080
-    networks:
-      - mywebserver
-    
+      - "9090:8080"   # Adjust ports if needed
    
   myhttp:
     image: mysql
