@@ -7,12 +7,9 @@ services:
       - myhttp
 
   myhttp:
-    image: mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: sun
-      MYSQL_DATABASE: mydb      
-      MYSQL_USER: sun            
-      MYSQL_PASSWORD: sun123
+    image: tomee
+    ports:
+      - 7070:8080
     networks:
       - mywebserver
 
