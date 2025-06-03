@@ -3,7 +3,7 @@ services:
   myno:
     image: sunnyramagiri/myno:latest
     ports:
-      - "9090:8080"   # Adjust ports if needed
+      - "9090:8080"
    
   myhttp:
     image: mysql
