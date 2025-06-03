@@ -1,0 +1,52 @@
+pipeline {
+    agent any
+
+    tools {
+        maven 'maven'
+    }
+
+    stages {
+        stage('Git Clone') {
+            steps {
+                git 'https://github.com/Sunnyramaguiri/ci-docker.git'
+                echo 'Git clone success'
+            }
+        }
+
+        stage('Maven Build') {
+            steps {
+                sh 'mvn clean package'
+                echo 'Maven build success'
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                sh 'docker build -t sunnyramagiri/myno:latest .'
+                echo 'Docker build success'
+            }
+        }
+
+        stage('Docker Push') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {
+                        sh 'docker push sunnyramagiri/myno:latest'
+                        echo 'Docker push success'
+                    }
+                }
+            }
+        }
+
+        stage('Docker Compose Up') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {
+                        sh 'docker compose up -d'
+                        echo 'Docker Compose up success'
+                    }
+                }
+            }
+        }
+    }
+}
