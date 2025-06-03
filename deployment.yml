@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myno
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myno
+  template:
+    metadata:
+      labels:
+        app: myno
+    spec:
+      containers:
+      - name: myno
+        image: sunnyramagiri/myno:latest
+        ports:
+        - containerPort: 8080
