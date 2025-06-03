@@ -1,10 +1,11 @@
----
 services:
   myno:
     image: sunnyramagiri/myno:latest
     ports:
       - "9090:8080"
-   
+    depends_on:
+      - myhttp
+
   myhttp:
     image: mysql
     environment:
