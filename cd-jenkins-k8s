@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Git Clone') {
+            steps {
+                git 'https://github.com/Sunnyramaguiri/ci-docker.git'
+                echo 'Git clone success'
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                kubernetesDeploy(
+                    configs: 'deployment.yml,service.yml',  // comma-separated string
+                    kubeconfigId: 'K8s'                     // Jenkins credential ID
+                )
+                echo 'Kubernetes deployment applied'
+            }
+        }
+    }
+}
